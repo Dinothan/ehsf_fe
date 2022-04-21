@@ -1,0 +1,10 @@
+export const AUTH_START = "AUTH_START";
+export const AUTH_FAIL = "AUTH_FAIL";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_LOGOUT = "AUTH_LOGOUT";
+export const KEEP_ALIVE = "KEEP_ALIVE";
+export const LOGIN_PRESS = "LOGIN_PRESS";
+export const IS_FROM_LOGIN = "IS_FROM_LOGIN";
+export const GET_PRODUCT_SUCCESS = "GET_PRODUCT_SUCCESS";
+export const GET_TICKET = "GET_TICKET";
+export const GET_TICKET_SUCCESS = "GET_TICKET_SUCCESS";

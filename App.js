@@ -1,19 +1,23 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
+import {Provider} from 'react-redux';
 import {NativeBaseProvider, Box} from 'native-base';
+import configureStore from './src/store/store';
+import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
+import AppContainer from './src/navigations/AppNavigation';
+
+const store = configureStore();
 
 function App() {
   return (
-    <NativeBaseProvider>
-      <Box>Hello world</Box>
-    </NativeBaseProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NativeBaseProvider>
+          <SafeAreaView style={{flex: 1}}>
+            <AppContainer />
+          </SafeAreaView>
+        </NativeBaseProvider>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 

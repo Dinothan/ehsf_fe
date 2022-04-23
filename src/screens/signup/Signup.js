@@ -52,7 +52,6 @@ const Signup = props => {
   const HeadingText = () => (
     <View style={headingContainer}>
       <Text style={heading}>Sign In</Text>
-      <Text style={subHeading}></Text>
     </View>
   );
 
@@ -514,7 +513,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   formContainer: {
-    paddingTop: 40,
+    paddingTop: 30,
     alignItems: 'center',
   },
   contactContainer: {

@@ -10,6 +10,7 @@ import {colors} from '../../config/colors';
 import {useForm, Controller} from 'react-hook-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FormControl from '../../components/formController/FormController';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const {width: screenWidth} = Dimensions.get('window');
 const Signup = props => {
@@ -51,9 +52,7 @@ const Signup = props => {
   const HeadingText = () => (
     <View style={headingContainer}>
       <Text style={heading}>Sign In</Text>
-      <Text style={subHeading}>
-        Please sign in with the provided email and password
-      </Text>
+      <Text style={subHeading}></Text>
     </View>
   );
 
@@ -487,10 +486,14 @@ const Signup = props => {
     };
     return (
       <View style={styles.container}>
-        <Logo />
-        <HeadingText />
-        <LoginForm country={country} onSelect={onSelect} />
-        <Contact />
+        <ScrollView style={styles.scrollContainer}>
+          <View style={styles.pageLayoutStyle}>
+            <Logo />
+            <HeadingText />
+            <LoginForm country={country} onSelect={onSelect} />
+            <Contact />
+          </View>
+        </ScrollView>
       </View>
     );
   };
@@ -501,9 +504,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.neutral[700],
-    justifyContent: 'flex-start',
-    alignItems: 'center',
   },
+  pageLayoutStyle: {justifyContent: 'flex-start', alignItems: 'center'},
   logoContainer: {
     paddingTop: 40,
   },
@@ -547,6 +549,7 @@ const styles = StyleSheet.create({
     width: screenWidth - 64,
     paddingTop: 40,
   },
+  scrollContainer: {width: '100%'},
 });
 
 const mapDispatchToProps = dispatch => {

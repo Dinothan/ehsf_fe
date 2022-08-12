@@ -36,7 +36,7 @@ const Login = props => {
 
   const onSubmit = async data => {
     delete data.confirmpassword;
-    console.log('ddata: ', data);
+
     setLoading(true);
     try {
       onLogin(data, () => {

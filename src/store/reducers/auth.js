@@ -9,7 +9,6 @@ const initialState = {
 };
 
 const authSuccess = (state, action) => {
-  console.log('state :', state);
   return updateObject(state, {
     error: false,
     isAuthenticated: true,
@@ -35,8 +34,8 @@ const loginButtonPress = (state, action) => {
   return updateObject(state, {isFromLogin: true});
 };
 
-const isFromLogin = state => {
-  return updateObject(state, {isFromLogin: false, fromSignUp: false});
+const getUserDetails = (state, action) => {
+  return updateObject(state, {user: action.user});
 };
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +48,8 @@ const reducer = (state = initialState, action) => {
       return authLogout(state, action);
     case actionTypes.LOGIN_PRESS:
       return loginButtonPress(state, action);
+    case actionTypes.GET_USER_DETAILES:
+      return getUserDetails(state, action);
     default:
       return state;
   }

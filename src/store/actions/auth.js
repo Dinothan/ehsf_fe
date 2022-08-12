@@ -62,12 +62,21 @@ export const auth = (user, callBack) => {
       )
       .then(response => {
         AsyncStorage.setItem('token', response.data.token);
+
         dispatch(authSuccess());
+        dispatch(getUser(response.data.user));
       })
       .catch(error => {
         if (error.response === undefined) {
         } else {
         }
       });
+  };
+};
+
+export const getUser = data => {
+  return {
+    type: actionTypes.GET_USER_DETAILES,
+    user: data,
   };
 };

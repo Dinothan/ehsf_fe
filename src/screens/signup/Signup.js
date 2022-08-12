@@ -9,6 +9,8 @@ import * as actions from '../../store/actions/index';
 import {colors} from '../../config/colors';
 import {useForm, Controller} from 'react-hook-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwsomeIcons from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FormControl from '../../components/formController/FormController';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -16,11 +18,10 @@ const {width: screenWidth} = Dimensions.get('window');
 const Signup = props => {
   const {onSignup} = props;
   const [loading, setLoading] = useState(false);
+  const [showNext, setShowNext] = useState(true);
   const {
-    logo,
     button,
     heading,
-    subHeading,
     formContainer,
     logoContainer,
     headingContainer,
@@ -37,10 +38,12 @@ const Signup = props => {
 
   const onSubmit = async data => {
     delete data.confirmpassword;
-    console.log('ddata: ', data);
+
     setLoading(true);
     try {
-      onSignup(data, () => {});
+      onSignup(data, () => {
+        props.navigation.navigate('SignIn');
+      });
       setLoading(false);
     } catch (e) {
       setLoading(false);
@@ -55,425 +58,567 @@ const Signup = props => {
     </View>
   );
 
-  const LoginForm = ({country, onSelect}) => (
-    <View style={formContainer}>
-      <View style={inputContainer}>
-        <Controller
-          rules={{
-            required: 'First name is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.email}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type={'dark'}
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
+  const LoginForm = ({country, onSelect}) => {
+    return (
+      <View style={formContainer}>
+        {showNext ? (
+          <>
+            <View style={inputContainer}>
+              <Controller
+                rules={{
+                  required: 'First name is required',
                 }}
-                style={{fontSize: 12}}
-                autoCapitalize={'none'}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="person" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="person" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your firstname"
                     />
-                  </View>
-                }
-                placeholder="Enter your firstname"
+                  </FormControl>
+                )}
+                name="firstname"
               />
-            </FormControl>
-          )}
-          name="firstname"
-        />
-        <Controller
-          rules={{
-            required: 'Last name is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.email}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type={'dark'}
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
+              <Controller
+                rules={{
+                  required: 'Last name is required',
                 }}
-                style={{fontSize: 12}}
-                autoCapitalize={'none'}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="person" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="person" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your lastname"
                     />
-                  </View>
-                }
-                placeholder="Enter your lastname"
+                  </FormControl>
+                )}
+                name="lastname"
               />
-            </FormControl>
-          )}
-          name="lastname"
-        />
-        <Controller
-          rules={{
-            required: 'Phone number is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.email}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type={'dark'}
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
+              <Controller
+                rules={{
+                  required: 'Phone number is required',
                 }}
-                style={{fontSize: 12}}
-                autoCapitalize={'none'}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="person" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="phone" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your phone number"
                     />
-                  </View>
-                }
-                placeholder="Enter your phone number"
+                  </FormControl>
+                )}
+                name="phone"
               />
-            </FormControl>
-          )}
-          name="phone"
-        />
-        <Controller
-          rules={{
-            required: 'City is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.email}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type={'dark'}
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
+              <Controller
+                rules={{
+                  required: 'City is required',
                 }}
-                style={{fontSize: 12}}
-                autoCapitalize={'none'}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="person" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="location-city" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your city"
                     />
-                  </View>
-                }
-                placeholder="Enter your city"
+                  </FormControl>
+                )}
+                name="city"
               />
-            </FormControl>
-          )}
-          name="city"
-        />
-        <Controller
-          rules={{
-            required: 'State is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.email}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type={'dark'}
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
+              <Controller
+                rules={{
+                  required: 'State is required',
                 }}
-                style={{fontSize: 12}}
-                autoCapitalize={'none'}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="person" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="location-city" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your state"
                     />
-                  </View>
-                }
-                placeholder="Enter your state"
+                  </FormControl>
+                )}
+                name="state"
               />
-            </FormControl>
-          )}
-          name="state"
-        />
-        <Controller
-          rules={{
-            required: 'Country is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.email}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type={'dark'}
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
+              <Controller
+                rules={{
+                  required: 'Country is required',
                 }}
-                style={{fontSize: 12}}
-                autoCapitalize={'none'}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="person" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="location-city" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your country"
                     />
-                  </View>
-                }
-                placeholder="Enter your country"
+                  </FormControl>
+                )}
+                name="country"
               />
-            </FormControl>
-          )}
-          name="country"
-        />
-        <Controller
-          rules={{
-            required: 'Gender is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl
-              style={styles.formControl}
-              label="Gender*"
-              error={errors.offerPlaced}>
-              <Radio.Group
-                color={colors.primary.teal}
+              <Controller
+                rules={{
+                  required: 'Gender is required',
+                }}
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl
+                    style={styles.formControl}
+                    label="Gender*"
+                    error={errors.offerPlaced}>
+                    <Radio.Group
+                      color={colors.primary.teal}
+                      name="gender"
+                      value={value}
+                      onChange={onChange}>
+                      <Stack
+                        direction={{
+                          base: 'row',
+                        }}
+                        space={4}
+                        w="100%">
+                        <Radio value={'male'} size="sm" my={1}>
+                          <Text style={styles.radioText}> male</Text>
+                        </Radio>
+                        <Radio value={'female'} size="sm" my={1}>
+                          <Text style={styles.radioText}> female</Text>
+                        </Radio>
+                      </Stack>
+                    </Radio.Group>
+                  </FormControl>
+                )}
                 name="gender"
-                value={value}
-                onChange={onChange}>
-                <Stack
-                  direction={{
-                    base: 'row',
-                  }}
-                  space={4}
-                  w="100%">
-                  <Radio value={'male'} size="sm" my={1}>
-                    <Text style={styles.radioText}>male</Text>
-                  </Radio>
-                  <Radio value={'female'} size="sm" my={1}>
-                    <Text style={styles.radioText}>female</Text>
-                  </Radio>
-                </Stack>
-              </Radio.Group>
-            </FormControl>
-          )}
-          name="gender"
-        />
-        <Controller
-          rules={{
-            required: 'Email is required',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Invalid email',
-            },
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.email}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type={'dark'}
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
-                }}
-                style={{fontSize: 12}}
-                autoCapitalize={'none'}
-                keyboardType={'email-address'}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="person" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
-                    />
-                  </View>
-                }
-                placeholder="Enter your email"
               />
-            </FormControl>
-          )}
-          name="email"
-        />
-        <Controller
-          rules={{
-            required: 'Password is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.password}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type="dark"
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
+              <Controller
+                rules={{
+                  required: 'Age is required',
                 }}
-                secureTextEntry
-                style={{fontSize: 12}}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="vpn-key" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialCommunityIcons name="face-agent" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your age"
                     />
-                  </View>
-                }
-                placeholder="Enter password"
+                  </FormControl>
+                )}
+                name="age"
               />
-            </FormControl>
-          )}
-          name="password"
-        />
-        <Controller
-          rules={{
-            required: 'Confirm password is required',
-          }}
-          control={control}
-          render={({field: {onChange, value}}) => (
-            <FormControl style={{marginBottom: 8}} error={errors.password}>
-              <Input
-                value={value}
-                onChangeText={onChange}
-                type="dark"
-                containerStyle={{width: '100%'}}
-                w={{
-                  base: screenWidth - 64,
+              <Controller
+                rules={{
+                  required: 'Weight is required',
                 }}
-                secureTextEntry
-                style={{fontSize: 12}}
-                InputLeftElement={
-                  <View
-                    style={{
-                      height: '100%',
-                      backgroundColor: colors.neutral[700],
-                      paddingTop: 10,
-                    }}>
-                    <Icon
-                      as={<MaterialIcons name="vpn-key" />}
-                      size={5}
-                      ml="2"
-                      color="muted.400"
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<FontAwsomeIcons name="weight" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your weight in kg"
                     />
-                  </View>
-                }
-                placeholder="Enter confirm password"
+                  </FormControl>
+                )}
+                name="weight"
               />
-            </FormControl>
-          )}
-          name="confirmpassword"
-        />
+            </View>
+            <Controller
+              rules={{
+                required: 'Height is required',
+              }}
+              control={control}
+              render={({field: {onChange, value}}) => (
+                <FormControl style={{marginBottom: 8}} error={errors.email}>
+                  <Input
+                    value={value}
+                    onChangeText={onChange}
+                    type={'dark'}
+                    containerStyle={{width: '100%'}}
+                    w={{
+                      base: screenWidth - 64,
+                    }}
+                    style={{fontSize: 12}}
+                    autoCapitalize={'none'}
+                    InputLeftElement={
+                      <View
+                        style={{
+                          height: '100%',
+                          backgroundColor: colors.neutral[700],
+                          paddingTop: 10,
+                        }}>
+                        <Icon
+                          as={
+                            <MaterialCommunityIcons name="human-male-height" />
+                          }
+                          size={5}
+                          ml="2"
+                          color="muted.400"
+                        />
+                      </View>
+                    }
+                    placeholder="Enter your height in cm"
+                  />
+                </FormControl>
+              )}
+              name="height"
+            />
+            <View style={buttonContainer}>
+              <Button
+                _loading={{
+                  _text: {
+                    color: 'white',
+                  },
+                }}
+                isLoading={loading}
+                style={button}
+                onPress={() => setShowNext(false)}>
+                {'Next'}
+              </Button>
+            </View>
+          </>
+        ) : (
+          <View>
+            <View>
+              <Controller
+                rules={{
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'Invalid email',
+                  },
+                }}
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl style={{marginBottom: 8}} error={errors.email}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type={'dark'}
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      style={{fontSize: 12}}
+                      autoCapitalize={'none'}
+                      keyboardType={'email-address'}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="person" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter your email"
+                    />
+                  </FormControl>
+                )}
+                name="email"
+              />
+              <Controller
+                rules={{
+                  required: 'Password is required',
+                }}
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl
+                    style={{marginBottom: 8}}
+                    error={errors.password}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type="dark"
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      secureTextEntry
+                      style={{fontSize: 12}}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="vpn-key" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter password"
+                    />
+                  </FormControl>
+                )}
+                name="password"
+              />
+              <Controller
+                rules={{
+                  required: 'Confirm password is required',
+                }}
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <FormControl
+                    style={{marginBottom: 8}}
+                    error={errors.password}>
+                    <Input
+                      value={value}
+                      onChangeText={onChange}
+                      type="dark"
+                      containerStyle={{width: '100%'}}
+                      w={{
+                        base: screenWidth - 64,
+                      }}
+                      secureTextEntry
+                      style={{fontSize: 12}}
+                      InputLeftElement={
+                        <View
+                          style={{
+                            height: '100%',
+                            backgroundColor: colors.neutral[700],
+                            paddingTop: 10,
+                          }}>
+                          <Icon
+                            as={<MaterialIcons name="vpn-key" />}
+                            size={5}
+                            ml="2"
+                            color="muted.400"
+                          />
+                        </View>
+                      }
+                      placeholder="Enter confirm password"
+                    />
+                  </FormControl>
+                )}
+                name="confirmpassword"
+              />
+            </View>
+            <View style={buttonContainer}>
+              <Button
+                _loading={{
+                  _text: {
+                    color: 'white',
+                  },
+                }}
+                isLoading={loading}
+                style={button}
+                onPress={() => setShowNext(true)}>
+                {'Back'}
+              </Button>
+              <View style={{paddingBottom: 10}} />
+              <Button
+                _loading={{
+                  _text: {
+                    color: 'white',
+                  },
+                }}
+                isLoading={loading}
+                style={button}
+                onPress={handleSubmit(onSubmit)}>
+                {'Signup'}
+              </Button>
+            </View>
+          </View>
+        )}
       </View>
-      <View style={buttonContainer}>
-        <Button
-          _loading={{
-            _text: {
-              color: 'white',
-            },
-          }}
-          isLoading={loading}
-          style={button}
-          onPress={handleSubmit(onSubmit)}>
-          {'Signup'}
-        </Button>
-      </View>
-      {/* <Modal
-        setOpen={setOpen}
-        open={open}
-        heading={'Forgot your username or password?'}
-        text={
-          'Please contact IMPACC at the number given above to reset your username or password'
-        }
-      />
-      <Modal
-        setOpen={setNetworkOpen}
-        open={networkOpen}
-        heading={'No Internet Connection'}
-        text={'You need internet connection to login into the app.'}
-      /> */}
-    </View>
-  );
+    );
+  };
 
   const Contact = () => (
     <View style={contactContainer}>
-      <Text style={{fontSize: 16, fontWeight: 'bold'}}>or</Text>
+      <Text style={{fontSize: 14}}>or</Text>
       <TouchableOpacity onPress={() => props.navigation.navigate('SignIn')}>
-        <Text>Login</Text>
+        <Text style={{fontWeight: 'bold', fontSize: 20}}>Login</Text>
       </TouchableOpacity>
     </View>
   );
@@ -518,7 +663,7 @@ const styles = StyleSheet.create({
   },
   contactContainer: {
     alignItems: 'center',
-    paddingTop: 40,
+    paddingTop: 30,
   },
   logo: {
     width: 40,

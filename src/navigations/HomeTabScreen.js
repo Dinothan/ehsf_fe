@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  BottomTabHeaderProps,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,6 +8,8 @@ import {colors} from '../config/colors';
 import {View} from 'native-base';
 import Text from '../components/typography/Text';
 import LinearGradient from 'react-native-linear-gradient';
+import ProfileScreen from '../screens/profile/Profile';
+import MyDietScreen from '../screens/my-diet/MyDietScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -68,7 +67,7 @@ const HomeTabScreen = () => {
       />
       <Tab.Screen
         name="My Diet"
-        component={HomeScreen}
+        component={MyDietScreen}
         options={{
           tabBarLabel: 'My Diet',
           tabBarIcon: ({color, size}) => (
@@ -82,7 +81,7 @@ const HomeTabScreen = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({color, size}) => (
